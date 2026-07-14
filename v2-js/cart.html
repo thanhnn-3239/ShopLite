@@ -18,49 +18,21 @@
         <h1>Giỏ hàng của bạn</h1>
 
         <div class="cart-container">
-            <section class="cart-items-list">
-                <article class="cart-item">
-                    <div class="cart-item-image">Ảnh nhỏ</div>
-                    <div class="cart-item-details">
-                        <div class="cart-item-info">
-                            <h3><a href="product.html">Điện thoại thông minh LitePhone 12</a></h3>
-                        </div>
-                        <div class="cart-item-controls">
-                            <input type="number" class="cart-item-qty" value="1" min="1" aria-label="Số lượng">
-                            <span class="cart-item-price">12.490.000đ</span>
-                            <button type="button" class="btn-delete">Xóa</button>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="cart-item">
-                    <div class="cart-item-image">Ảnh nhỏ</div>
-                    <div class="cart-item-details">
-                        <div class="cart-item-info">
-                            <h3><a href="product.html">Tai nghe không dây LiteBuds Pro</a></h3>
-                        </div>
-                        <div class="cart-item-controls">
-                            <input type="number" class="cart-item-qty" value="2" min="1" aria-label="Số lượng">
-                            <span class="cart-item-price">1.890.000đ</span>
-                            <button type="button" class="btn-delete">Xóa</button>
-                        </div>
-                    </div>
-                </article>
-            </section>
+            <section class="cart-items-list" id="cart-items-list"></section>
 
             <aside class="cart-summary">
                 <h3>Tóm tắt đơn hàng</h3>
                 <div class="summary-row">
                     <span>Tạm tính</span>
-                    <span>16.270.000đ</span>
+                    <span id="summary-subtotal">0đ</span>
                 </div>
                 <div class="summary-row">
                     <span>Phí vận chuyển</span>
-                    <span>30.000đ</span>
+                    <span id="summary-shipping">30.000đ</span>
                 </div>
                 <div class="summary-row total">
                     <span>Tổng cộng</span>
-                    <span>16.300.000đ</span>
+                    <span id="summary-total">0đ</span>
                 </div>
                 <button type="button" class="btn-checkout">Thanh toán</button>
             </aside>
@@ -75,5 +47,6 @@
         </nav>
     </footer>
 
+    <script type="module" src="cart_view.js"></script>
 </body>
 </html>
