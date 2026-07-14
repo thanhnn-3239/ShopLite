@@ -12,12 +12,33 @@ body {
     padding: 20px;
 }
 
+/* Header/Navbar */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid #ccc;
+    gap: 10px;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+    white-space: nowrap; /* Không cho logo xuống dòng */
+}
+
+header input[type="text"] {
+    flex: 1; /* Tự động co giãn theo khoảng trống */
+    max-width: 300px;
+    min-width: 120px; /* Ranh giới co nhỏ tối thiểu trên mobile hẹp */
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.cart {
+    white-space: nowrap; /* Không cho giỏ hàng xuống dòng */
 }
 
 main {
@@ -29,35 +50,111 @@ h1 {
     margin-bottom: 15px;
 }
 
+/* Lưới sản phẩm trang chủ - Tự động xuống dòng & co giãn không dùng Media Query */
 .product-grid {
-    display: flex;
-    gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
     margin-top: 15px;
 }
 
+/* Thẻ sản phẩm - Flexbox dọc */
 .product-card {
     border: 1px solid #ddd;
-    padding: 10px;
-    width: 150px;
-    text-align: center;
-}
-
-.product-card h2 {
-    font-size: 0.9rem;
-    font-weight: 500;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
 .product-image {
     background: #eee;
-    height: 100px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
 }
 
-footer {
+.product-card h2 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+.product-price {
+    font-size: 0.95rem;
+    color: #e44d26;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.btn-add-cart {
+    margin-top: auto; /* Đẩy nút xuống đáy card */
+    padding: 8px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Trang chi tiết sản phẩm */
+.product-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
     margin-top: 20px;
+}
+
+.product-detail-image {
+    background: #eee;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.product-detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.product-detail-info h2 {
+    font-size: 1.8rem;
+}
+
+.product-detail-price {
+    font-size: 1.5rem;
+    color: #e44d26;
+    font-weight: bold;
+}
+
+.btn-large {
+    padding: 12px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #007bff;
+}
+
+/* Responsive di động cho trang chi tiết */
+@media (max-width: 768px) {
+    .product-detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+footer {
+    margin-top: 25px;
     padding-top: 10px;
     border-top: 1px solid #ccc;
 }
