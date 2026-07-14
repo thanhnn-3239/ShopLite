@@ -1,0 +1,5 @@
+# Scratch files
+scratch/
+.gemini/
+*.tmp
+.DS_Store
