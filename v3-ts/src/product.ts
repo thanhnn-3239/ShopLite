@@ -11,17 +11,21 @@ function showStatus(msg: string): void {
     }
 }
 
-function fetchProductDetail(id: string): void {
+export function fetchProductDetail(id: string): Promise<Product> {
+    return fetch(`https://dummyjson.com/products/${id}`)
+        .then(res => {
+            if (!res.ok) throw new Error('Không tìm thấy sản phẩm.');
+            return res.json();
+        });
+}
+
+function loadAndRenderProductDetail(id: string): void {
     if (!detailContainer) return;
     
     showStatus('Đang tải chi tiết sản phẩm...');
     
-    fetch(`https://dummyjson.com/products/${id}`)
-        .then(res => {
-            if (!res.ok) throw new Error('Không tìm thấy sản phẩm.');
-            return res.json();
-        })
-        .then((product: Product) => {
+    fetchProductDetail(id)
+        .then(product => {
             detailContainer.innerHTML = `
                 <div class="product-detail-image">
                     <img src="${product.thumbnail}" alt="${product.title}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
@@ -53,7 +57,7 @@ function fetchProductDetail(id: string): void {
 updateCartBadge();
 
 if (productId) {
-    fetchProductDetail(productId);
+    loadAndRenderProductDetail(productId);
 } else {
     showStatus('Sản phẩm không hợp lệ.');
 }

@@ -2,14 +2,14 @@ import type { Product, CartItem } from './types';
 
 export function getCart(): CartItem[] {
     const raw = localStorage.getItem('cart');
-    return raw ? JSON.parse(raw) : [];
+    return raw ? JSON.parse(raw) as CartItem[] : [];
 }
 
 export function saveCart(cart: CartItem[]): void {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-export function addToCart(product: Product): void {
+export function addToCart(product: Product): CartItem[] {
     const cart = getCart();
     const existingItem = cart.find(item => item.id === product.id);
     
@@ -32,15 +32,17 @@ export function addToCart(product: Product): void {
     }
     saveCart(cart);
     updateCartBadge();
+    return cart;
 }
 
-export function removeFromCart(productId: number): void {
+export function removeFromCart(productId: number): CartItem[] {
     const cart = getCart().filter(item => item.id !== productId);
     saveCart(cart);
     updateCartBadge();
+    return cart;
 }
 
-export function updateQty(productId: number, qty: number): void {
+export function updateQty(productId: number, qty: number): CartItem[] {
     const cart = getCart();
     const item = cart.find(item => item.id === productId);
     if (item) {
@@ -48,6 +50,7 @@ export function updateQty(productId: number, qty: number): void {
         saveCart(cart);
     }
     updateCartBadge();
+    return cart;
 }
 
 export function getCartCount(): number {

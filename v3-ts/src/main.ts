@@ -7,6 +7,15 @@ const searchInput = document.getElementById('search-input') as HTMLInputElement 
 
 let productsList: Product[] = [];
 
+export function fetchProducts(): Promise<Product[]> {
+    return fetch('https://dummyjson.com/products')
+        .then(res => {
+            if (!res.ok) throw new Error('Không thể kết nối.');
+            return res.json();
+        })
+        .then((data: { products: Product[] }) => data.products || []);
+}
+
 function renderProducts(list: Product[]): void {
     if (!productGrid) return;
     
@@ -27,18 +36,13 @@ function renderProducts(list: Product[]): void {
     `).join('');
 }
 
-function fetchProducts(): void {
+function loadAndRenderProducts(): void {
     if (!productGrid) return;
-    
     productGrid.innerHTML = '<p class="no-products">Đang tải sản phẩm...</p>';
     
-    fetch('https://dummyjson.com/products')
-        .then(res => {
-            if (!res.ok) throw new Error('Không thể kết nối.');
-            return res.json();
-        })
-        .then((data: { products: Product[] }) => {
-            productsList = data.products || [];
+    fetchProducts()
+        .then(data => {
+            productsList = data;
             renderProducts(productsList);
         })
         .catch(err => {
@@ -51,7 +55,7 @@ function fetchProducts(): void {
             `;
             const retryBtn = document.getElementById('retry-btn');
             if (retryBtn) {
-                retryBtn.addEventListener('click', fetchProducts);
+                retryBtn.addEventListener('click', loadAndRenderProducts);
             }
         });
 }
@@ -82,4 +86,4 @@ if (productGrid) {
 }
 
 updateCartBadge();
-fetchProducts();
+loadAndRenderProducts();
