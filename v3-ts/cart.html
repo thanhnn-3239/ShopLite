@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopLite - Giỏ hàng</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <span class="logo"><a href="index.html">ShopLite</a></span>
+        <input type="text" placeholder="Tìm kiếm sản phẩm...">
+        <span class="cart"><a href="cart.html">Giỏ hàng (3)</a></span>
+    </header>
+
+    <main>
+        <h1>Giỏ hàng của bạn</h1>
+
+        <div class="cart-container">
+            <section class="cart-items-list" id="cart-items-list"></section>
+
+            <aside class="cart-summary">
+                <h3>Tóm tắt đơn hàng</h3>
+                <div class="summary-row">
+                    <span>Tạm tính</span>
+                    <span id="summary-subtotal">0đ</span>
+                </div>
+                <div class="summary-row">
+                    <span>Phí vận chuyển</span>
+                    <span id="summary-shipping">30.000đ</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Tổng cộng</span>
+                    <span id="summary-total">0đ</span>
+                </div>
+                <button type="button" class="btn-checkout">Thanh toán</button>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <p>Thông tin ShopLite Store</p>
+        <nav>
+            <a href="#">Giới thiệu</a> |
+            <a href="#">Liên hệ</a>
+        </nav>
+    </footer>
+
+    <script type="module" src="/src/cart_view.ts"></script>
+</body>
+</html>
