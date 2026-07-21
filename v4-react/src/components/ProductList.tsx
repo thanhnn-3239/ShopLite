@@ -4,9 +4,14 @@ import { ProductCard } from './ProductCard';
 interface ProductListProps {
   products: Product[];
   onAddToCart: (product: Product) => void;
+  onSelectProduct: (id: number) => void;
 }
 
-export function ProductList({ products, onAddToCart }: ProductListProps) {
+export function ProductList({
+  products,
+  onAddToCart,
+  onSelectProduct,
+}: ProductListProps) {
   if (products.length === 0) {
     return (
       <div className="text-center py-12 text-gray-500 text-sm">
@@ -22,6 +27,7 @@ export function ProductList({ products, onAddToCart }: ProductListProps) {
           key={product.id}
           product={product}
           onAddToCart={onAddToCart}
+          onSelectProduct={onSelectProduct}
         />
       ))}
     </div>

@@ -3,22 +3,33 @@ import type { Product } from '../types';
 interface ProductCardProps {
   product: Product;
   onAddToCart: (product: Product) => void;
+  onSelectProduct: (id: number) => void;
 }
 
-export function ProductCard({ product, onAddToCart }: ProductCardProps) {
+export function ProductCard({
+  product,
+  onAddToCart,
+  onSelectProduct,
+}: ProductCardProps) {
   return (
     <article className="flex flex-col bg-white border border-gray-200 rounded-lg p-4 shadow-xs hover:border-blue-500 hover:shadow-md transition-all">
       {/* Thumbnail */}
-      <div className="w-full h-40 bg-gray-100 rounded-md overflow-hidden flex items-center justify-center mb-3">
+      <div
+        onClick={() => onSelectProduct(product.id)}
+        className="w-full h-40 bg-gray-100 rounded-md overflow-hidden flex items-center justify-center mb-3 cursor-pointer group"
+      >
         <img
           src={product.thumbnail}
           alt={product.title}
-          className="max-h-full max-w-full object-contain"
+          className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform"
         />
       </div>
 
       {/* Title */}
-      <h3 className="text-sm font-medium text-gray-900 line-clamp-2 mb-2 hover:text-blue-600 cursor-pointer">
+      <h3
+        onClick={() => onSelectProduct(product.id)}
+        className="text-sm font-medium text-gray-900 line-clamp-2 mb-2 hover:text-blue-600 cursor-pointer"
+      >
         {product.title}
       </h3>
 
