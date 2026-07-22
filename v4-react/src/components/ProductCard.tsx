@@ -1,16 +1,17 @@
+import { useCartStore } from '../store/useCartStore';
 import type { Product } from '../types';
 
 interface ProductCardProps {
   product: Product;
-  onAddToCart: (product: Product) => void;
   onSelectProduct: (id: number) => void;
 }
 
 export function ProductCard({
   product,
-  onAddToCart,
   onSelectProduct,
 }: ProductCardProps) {
+  const addToCart = useCartStore((s) => s.addToCart);
+
   return (
     <article className="flex flex-col bg-white border border-gray-200 rounded-lg p-4 shadow-xs hover:border-blue-500 hover:shadow-md transition-all">
       {/* Thumbnail */}
@@ -47,7 +48,7 @@ export function ProductCard({
       {/* Add to cart button */}
       <button
         type="button"
-        onClick={() => onAddToCart(product)}
+        onClick={() => addToCart(product)}
         className="mt-auto w-full py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-md transition-colors cursor-pointer active:bg-blue-800 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
       >
         Thêm vào giỏ

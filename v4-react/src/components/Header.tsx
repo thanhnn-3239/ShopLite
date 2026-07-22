@@ -1,16 +1,19 @@
+import { useCartStore } from '../store/useCartStore';
+
 interface HeaderProps {
   searchTerm: string;
   onSearchChange: (value: string) => void;
-  cartCount: number;
   onOpenLogin: () => void;
 }
 
 export function Header({
   searchTerm,
   onSearchChange,
-  cartCount,
   onOpenLogin,
 }: HeaderProps) {
+  const totalCount = useCartStore((s) => s.getTotalCount());
+  const totalPrice = useCartStore((s) => s.getTotalPrice());
+
   return (
     <header className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
@@ -45,8 +48,15 @@ export function Header({
           </div>
         </div>
 
-        {/* Right actions: Cart & Login button */}
+        {/* Right actions: Total Price, Cart & Login button */}
         <div className="flex items-center gap-3">
+          {/* Total Price display when items exist */}
+          {totalCount > 0 && (
+            <span className="hidden sm:inline-block text-xs font-semibold text-gray-700 bg-gray-100 px-2.5 py-1 rounded-md">
+              {totalPrice.toLocaleString('vi-VN')}đ
+            </span>
+          )}
+
           <button
             type="button"
             onClick={onOpenLogin}
@@ -75,7 +85,7 @@ export function Header({
               />
             </svg>
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
-              {cartCount}
+              {totalCount}
             </span>
           </a>
         </div>

@@ -3,13 +3,11 @@ import { ProductCard } from './ProductCard';
 
 interface ProductListProps {
   products: Product[];
-  onAddToCart: (product: Product) => void;
   onSelectProduct: (id: number) => void;
 }
 
 export function ProductList({
   products,
-  onAddToCart,
   onSelectProduct,
 }: ProductListProps) {
   if (products.length === 0) {
@@ -26,7 +24,6 @@ export function ProductList({
         <ProductCard
           key={product.id}
           product={product}
-          onAddToCart={onAddToCart}
           onSelectProduct={onSelectProduct}
         />
       ))}
