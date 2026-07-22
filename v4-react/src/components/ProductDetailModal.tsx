@@ -1,18 +1,17 @@
 import { useProduct } from '../hooks/useProduct';
-import type { Product } from '../types';
+import { useCartStore } from '../store/useCartStore';
 
 interface ProductDetailModalProps {
   productId: number | null;
   onClose: () => void;
-  onAddToCart: (product: Product) => void;
 }
 
 export function ProductDetailModal({
   productId,
   onClose,
-  onAddToCart,
 }: ProductDetailModalProps) {
   const { data: product, isLoading, isError, error, refetch } = useProduct(productId);
+  const addToCart = useCartStore((s) => s.addToCart);
 
   if (!productId) return null;
 
@@ -88,7 +87,7 @@ export function ProductDetailModal({
               <button
                 type="button"
                 onClick={() => {
-                  onAddToCart(product);
+                  addToCart(product);
                   onClose();
                 }}
                 className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-sm font-semibold rounded-md transition-colors cursor-pointer"

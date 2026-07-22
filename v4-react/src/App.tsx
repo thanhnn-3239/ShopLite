@@ -5,11 +5,9 @@ import { ProductSkeleton } from './components/ProductSkeleton';
 import { ProductDetailModal } from './components/ProductDetailModal';
 import { LoginForm } from './components/LoginForm';
 import { useProducts } from './hooks/useProducts';
-import type { Product, CartItem } from './types';
 
 export function App() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [cart, setCart] = useState<CartItem[]>([]);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
 
@@ -24,29 +22,12 @@ export function App() {
     );
   });
 
-  const handleAddToCart = (product: Product) => {
-    setCart((prevCart) => {
-      const existing = prevCart.find((item) => item.id === product.id);
-      if (existing) {
-        return prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-      return [...prevCart, { ...product, quantity: 1 }];
-    });
-  };
-
-  const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 text-gray-900">
       {/* Navigation Header */}
       <Header
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
-        cartCount={totalCartCount}
         onOpenLogin={() => setIsLoginOpen(true)}
       />
 
@@ -81,7 +62,6 @@ export function App() {
           {!isLoading && !isError && (
             <ProductList
               products={filteredProducts}
-              onAddToCart={handleAddToCart}
               onSelectProduct={(id) => setSelectedProductId(id)}
             />
           )}
@@ -92,7 +72,6 @@ export function App() {
       <ProductDetailModal
         productId={selectedProductId}
         onClose={() => setSelectedProductId(null)}
-        onAddToCart={handleAddToCart}
       />
 
       {/* Login Modal Form */}
